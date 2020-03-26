@@ -189,7 +189,7 @@ module Example
       wait_until_stopped
     end
 
-    private
+    #private
 
     def configure_server
       @server.interface = @args.interface
@@ -223,12 +223,12 @@ module Example
       full_path = File.expand_path(path, @data_dir)
       FileUtils.mkdir_p File.dirname(full_path)
 	  
-	  File.open(full_path, 'w+') { |file| file.write("your text") }
+	  File.open(full_path, 'w+') { |file| file.write(contents) }
 	  puts File.read(full_path)
       
 	  File.open(full_path, 'w+') do |file|   # r+   -- dosent work 
-        file.write contents
-		file.write("some text")
+        file.write path
+		file.write(contents)
 		#puts File.read(full_path)
 	  end 
 		
@@ -315,10 +315,17 @@ Example::Main.new(ARGV).run if $0 == __FILE__
 
    def index
     @articles = Article.all	
+	#Example::Main.new(ARGV).create_files  #the magic query? 
    end
 	
 	def show 
-		@article = Article.find(params[:id])	
+		@article = Article.find(params[:id])
+		title_field = @article.title 
+		text_field = @article.text
+		puts title_field
+		puts text_field 
+		Example::Main.new(ARGV).create_file(title_field, text_field)
+		#add code to modify files based on user input here 
     end
 	
 	def edit
@@ -327,7 +334,7 @@ Example::Main.new(ARGV).run if $0 == __FILE__
 
 	def new
 		@article = Article.new
-		Example::Main.new(ARGV).run if $0 == __FILE__
+		#Example::Main.new(ARGV).create_files    
 	end
  
 	def create
