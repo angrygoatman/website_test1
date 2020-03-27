@@ -230,6 +230,8 @@ module Example
         file.write path
 		file.write(contents)
 		#puts File.read(full_path)
+		
+	   puts contents
 	  end 
 		
 	 
@@ -310,7 +312,7 @@ end
 ##############world of rails###########################################
 class ArticlesController < ApplicationController
 #@var2.print     #able to either have website work or run ftp server with printed results 
-Example::Main.new(ARGV).run if $0 == __FILE__
+#Example::Main.new(ARGV).run if $0 == __FILE__
 # runs every time -- code is modified or server is restarted
 
    def index
@@ -325,6 +327,9 @@ Example::Main.new(ARGV).run if $0 == __FILE__
 		puts title_field
 		puts text_field 
 		Example::Main.new(ARGV).create_file(title_field, text_field)
+		
+		#Example::Main.new(ARGV).create_file(title_field, text_field).run if $0 == __FILE__
+		
 		#add code to modify files based on user input here 
     end
 	
